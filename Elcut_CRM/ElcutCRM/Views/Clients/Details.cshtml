@@ -1,0 +1,65 @@
+﻿@model ElcutCRM.Data.Models.Organization
+@using ElcutCRM.Helpers;
+@{
+    Layout = "~/Views/Shared/_BootstrapIndex.cshtml";
+}
+@Scripts.Render("~/Scripts/bootstrap-datetimepicker.min.js")
+<div class="row">
+    <div class="span12" id="organizationTabContainer">
+        <ul class="nav nav-pills" id="organizationTabControl">
+            <li class="active"><a href="#organizationTab" data-toggle="tab">Организация</a></li>
+            <li><a href="#ordersTab" data-toggle="tab">Заказы</a></li>
+            <li><a href="#contactsTab" data-toggle="tab">Контакты</a></li>
+            <li><a href="#historyTab" data-toggle="tab">История</a></li>
+            <li><a href="#documentsTab" data-toggle="tab">Документы</a></li>
+        </ul>
+        <hr />
+        <div class="tab-content">
+            <div class="tab-pane active" id="organizationTab" style="overflow: hidden;">
+                @Html.Action("OrganizationInfo", new { model = Model })
+            </div>
+            <div class="tab-pane" id="ordersTab">
+                <div id="orderContainer">
+                    @Html.Action("Orders", new { model = Model })
+                </div>
+                @Html.BootstrapActionButton("Добавить", "Edit", "Order", new { organizationId = Model.ID })
+            </div>
+            <div class="tab-pane" id="contactsTab">
+                <div id="contactContainer">
+                    @Html.Partial("_ContactList", Model)
+                </div>
+            </div>
+            <div class="tab-pane" id="historyTab">
+                <div id="historyContainer">
+                    @Html.Action("History", new { model = Model })
+                </div>
+                <a href="#addHistory" role="button" class="btn btn-primary" data-toggle="modal">Добавить</a>
+                <div id="addHistory" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    @Html.Action("AddHistory", new { org = Model })
+                </div>
+            </div>
+            <div class="tab-pane" id="documentsTab">
+                <div id="documentsContainer">
+                    @Html.Action("Documents", new { model = Model })
+                </div>
+                <a href="#addDocument" role="button" class="btn btn-primary" data-toggle="modal">Добавить</a>
+                <div id="addDocument" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    @Html.Action("AddDocument", new { org = Model })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $('#organizationTabControl a[href="#@ViewBag.SelectedTab"]').tab('show');
+    </script>
+    <script>
+        $('div.date').datetimepicker({
+            language: 'ru'
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

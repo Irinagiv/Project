@@ -1,0 +1,70 @@
+﻿@model ElcutCRM.Data.Models.Organization
+@using ElcutCRM.Helpers;
+@if (Model.ContactNames.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    ФИО
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.ContactNames)
+        {
+            <tr>
+                <td>
+                    @Html.ModalLink(item.FullName, "ContactDetails", "Clients", new { id = item.ID }, "contactModal")
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Действие
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Просмотреть", "ContactDetails", new { id = item.ID })</li>
+                            <li>@Html.ActionLink("Редактировать", "EditContact", new { id = item.ID }) </li>
+                            <li>@Ajax.ActionLink("Удалить", "DeleteContact", new { id = item.ID }, new AjaxOptions
+                           {
+                               HttpMethod = "POST",
+                               Confirm = "Удалить контакт?",
+                               UpdateTargetId = "contactContainer"
+                           })</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    <hr />
+}
+@Html.BootstrapActionButton("Добавить", "AddContact", new { organizationId = Model.ID })
+<div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;</button>
+        <h3>
+            Данные контакта</h3>
+    </div>
+    <div class="modal-body">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="searchVk(this);">
+        ВКонтакте</button>
+        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">
+            Закрыть</button>
+    </div>
+</div>
+
+<script>
+    var searchVk = function (el) {
+        var query = $('#contactModal').find('input:hidden').val();
+        window.open('http://vk.com/search?' + query, '_blank');
+    }
+
+    $('#contactModal').on('hidden', function () {
+        $(this).removeData('modal');
+    })
+</script>

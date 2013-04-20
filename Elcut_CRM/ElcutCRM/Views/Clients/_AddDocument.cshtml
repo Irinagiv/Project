@@ -1,0 +1,39 @@
+﻿@model ElcutCRM.Data.Models.Document
+@using ElcutCRM.Helpers;
+@using ElcutCRM.Data.Models;
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        &times;</button>
+    <h3>
+        Добавить документ</h3>
+</div>
+<div class="modal-body">
+    @using (Html.BeginForm("AddDocument", "Clients", FormMethod.Post, new { @class = "form-horizontal", id = "addDocumentForm" }))
+    {
+        @Html.HiddenFor(x => x.OrganizationID)
+        <div class="control-group">
+            @Html.LabelFor(x => x.DocumentTypeKey, new { @class = "control-label" })
+            <div class="controls">
+                @Html.DictionaryDropDown(x => x.DocumentTypeKey, DictionaryEntry.DOCUMENT_TYPE_DICTIONARY)
+            </div>
+        </div>
+        
+        <div class="control-group">
+            @Html.LabelFor(x => x.CreatedDate, new { @class = "control-label" })
+            <div class="controls">
+                <div class="input-append date">
+                    <input data-format="dd.MM.yyyy hh:mm:ss" type="text" name="CreatedDate" value="@DateTime.Now.ToString()" />
+                    <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" onclick="document.getElementById('addDocumentForm').submit()">
+        Сохранить</button>
+    <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">
+        Закрыть</button>
+</div>

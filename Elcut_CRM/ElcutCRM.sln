@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElcutCRM", "ElcutCRM\ElcutCRM.csproj", "{E0A7E354-AC2F-4545-B227-4DC848E6E3F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElcutCRM.Data", "ElcutCRM.Data\ElcutCRM.Data.csproj", "{66A4793D-5BE6-488D-AA74-A3633A469339}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0A7E354-AC2F-4545-B227-4DC848E6E3F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0A7E354-AC2F-4545-B227-4DC848E6E3F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0A7E354-AC2F-4545-B227-4DC848E6E3F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0A7E354-AC2F-4545-B227-4DC848E6E3F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A4793D-5BE6-488D-AA74-A3633A469339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A4793D-5BE6-488D-AA74-A3633A469339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A4793D-5BE6-488D-AA74-A3633A469339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A4793D-5BE6-488D-AA74-A3633A469339}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

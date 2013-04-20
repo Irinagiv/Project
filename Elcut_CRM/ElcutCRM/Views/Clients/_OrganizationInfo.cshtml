@@ -1,0 +1,140 @@
+﻿@model ElcutCRM.Data.Models.Organization
+@using ElcutCRM.Helpers;
+<style>
+    #gSearch1
+    {
+        position: absolute;
+        width: 0;
+        left: -9999999px;
+    }
+</style>
+<script>
+    var searchLoaded = function () {
+        $('div.gsc-wrapper').on('click', 'a', function () {
+            console.log(this);
+        });
+    }
+</script>
+<div class="row">
+    <div class="span6">
+        <table class="table table-striped">
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Name)
+                </td>
+                <td>@Model.Name
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.TypeID)
+                </td>
+                <td>@Model.Type.Name
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.CountryID)
+                </td>
+                <td>@Model.Country.Name
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.City)
+                </td>
+                <td>@Model.City
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Index)
+                </td>
+                <td>@Model.Index
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Address)
+                </td>
+                <td>@Model.Address
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.StatusKey)
+                </td>
+                <td>@Model.Status.Name
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.RelationshipKey)
+                </td>
+                <td>@Model.Relationship.Name
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Site)
+                </td>
+                <td>@Model.Site
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <div id="gSearch">
+            <script>
+
+                
+
+                (function () {
+                    var cx = '018243263070534063633:hhhttm8in5a';
+                    var gcse = document.createElement('script');
+                    gcse.type = 'text/javascript';
+                    gcse.async = true;
+                    $(gcse).on('load', searchLoaded);
+                    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(gcse, s);
+                })();
+                var performGoogleSearch = function (el, query) {
+                    google.search.cse.element.getElement('searchResults').execute(query);
+                }
+            </script>
+            <gcse:searchresults-only gname='searchResults'></gcse:searchresults-only>
+        </div>
+        @Html.BootstrapActionButton("Изменить", "Edit", new { id = Model.ID })
+        <a class='btn btn-primary' href='#' onclick='performGoogleSearch(this, "@Model.Name")'>
+            Найти в Google</a>
+    </div>
+    <div class="span6">
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjunN_CaiHyoXUwzfbBNZ2hsmWzt1wJwg&sensor=false">
+        </script>
+        <script>
+            $(function () {
+                var locationStr = '@Model.City, @Model.Address';
+
+                var geocoder = new google.maps.Geocoder();
+
+                geocoder.geocode({ 'address': locationStr }, function (results, status) {
+                    if (results.length <= 0) {
+                        return false;
+                    }
+                    var point = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+
+                    var options = {
+                        zoom: 15,
+                        center: point,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP 
+                    };
+
+                    var map = new google.maps.Map(document.getElementById("map_canvas"), options);
+
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        draggable: true,
+                        position: point,
+                        title: '@Model.Name'
+                    });
+                });
+                
+            });
+        </script>
+
+        <div id="map_canvas" style="width:100%; height:500px">
+        </div>
+    </div>
+</div>

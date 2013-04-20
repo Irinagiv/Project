@@ -1,0 +1,47 @@
+﻿@model ElcutCRM.Data.Models.ContactName
+        <table class="table table-striped">
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Name)
+                </td>
+                <td>@Model.Name
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Surname)
+                </td>
+                <td>@Model.Surname
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.LastName)
+                </td>
+                <td>@Model.LastName
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Position)
+                </td>
+                <td>@Model.Position
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Email)
+                </td>
+                <td>@Model.Email
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Phone)
+                </td>
+                <td><a href="skype:@Model.Phone.Replace(" ","")?call">@Model.Phone</a>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Fax)
+                </td>
+                <td>@Model.Fax
+                </td>
+            </tr>
+        </table>
+
+<input type="hidden" value='@string.Format("c[q]={0} {1}&c[section]=people", Model.Name, Model.LastName)' />

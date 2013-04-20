@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ElcutCRM.Data.Models.Document>
+@using ElcutCRM.Helpers;
+@if (Model.Count() > 0)
+{
+    <div class="row">
+        <div class="span6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Номер
+                        </th>
+                        <th>
+                            Тип
+                        </th>
+                        <th>
+                            Дата
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.ID
+                        </td>
+                        <td>
+                            @item.DocumentType.Name
+                        </td>
+                        <td>@item.CreatedDate.ToString()
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Действие
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Ajax.ActionLink("Отправить", "SendDocument", new { id = item.ID }, new AjaxOptions
+                                   {
+                                       HttpMethod = "POST",
+                                       Confirm = "Отправить документ?",
+                                       UpdateTargetId = "documentsContainer"
+                                   })</li>
+                                    <li>@Ajax.ActionLink("Удалить", "DeleteDocument", new { id = item.ID }, new AjaxOptions
+                                   {
+                                       HttpMethod = "POST",
+                                       Confirm = "Удалить документ?",
+                                       UpdateTargetId = "documentsContainer"
+                                   })</li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <hr />
+        </div>
+    </div>
+}

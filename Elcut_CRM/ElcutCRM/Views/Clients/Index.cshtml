@@ -1,0 +1,51 @@
+﻿@model ElcutCRM.Models.OrganizationListViewModel
+@using ElcutCRM.Helpers;
+@using ElcutCRM.Data.Models;
+@{
+    Layout = "~/Views/Shared/_BootstrapIndex.cshtml";
+}
+<h2>
+    Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div id="organizations">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="vertical-align: top;" class="span3">
+                    Название
+                </th>
+                <th class="span4">
+                    Тип <br />
+                    @Html.DropDownListFor(x => x.SelectedTypeID, new SelectList(Model.Types, "ID", "Name"), new { id = "types-dropdown" })
+                </th>
+                <th class="span4">
+                    Статус <br />
+                    @Html.DictionaryDropDown(x => x.SelectedStatus, DictionaryEntry.ORGANIZATION_STATUS_DICTIONARY, "все", new { id = "statuses-dropdown" })
+                </th>
+                <th class="span4">
+                    Отношения <br />
+                    @Html.DictionaryDropDown(x => x.SelectedRelationship, DictionaryEntry.RELATIONSHIP_STATUS_DICTIONARY, "все", new { id = "relationships-dropdown" })
+                </th>
+                <th class="span1">
+                </th>
+            </tr>
+        </thead>
+        @Html.Action("OrganizationList")
+    </table>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('#organizations table th select').on('change', function () {
+            var typeId = $('#types-dropdown').val();
+
+            var statusKey = $('#statuses-dropdown').val();
+
+            var relationshipKey = $('#relationships-dropdown').val();
+
+            $('#organizations table tbody').load('@Url.Action("OrganizationList")?typeId=' + typeId + '&statusKey=' + statusKey + '&relationshipKey=' + relationshipKey);
+        });
+    </script>
+}

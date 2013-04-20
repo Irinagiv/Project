@@ -1,0 +1,33 @@
+﻿@model ElcutCRM.Models.OrganizationListViewModel
+
+
+    @foreach (var item in Model.Organizations)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Details", "Clients", new { id = item.ID }, null)
+            </td>
+            <td>
+                @item.Type.Name
+            </td>
+            <td>
+            </td>
+            <td></td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Действие
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Просмотреть", "Details", new { id = item.ID })</li>
+                        <li>@Html.ActionLink("Редактировать", "Edit", new { id = item.ID }) </li>
+                        <li>@Ajax.ActionLink("Удалить", "Delete", new { id = item.ID }, new AjaxOptions
+                           {
+                               HttpMethod = "POST",
+                               Confirm = "Удалить клиента?",
+                               OnSuccess = "location.href = location.pathname"
+                           })</li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    }

@@ -1,0 +1,82 @@
+﻿@model ElcutCRM.Data.Models.Order
+@using ElcutCRM.Helpers;
+@using ElcutCRM.Data.Models;
+
+@Html.HiddenFor(x => x.ID)
+@Html.HiddenFor(x => x.OrganizationID)
+<style>
+    #configurator ul 
+    {
+        list-style-type: none;
+    }
+    
+    #configurator ul li label
+    {
+        border-bottom: 1px dotted #666;
+        width: 400px;
+        padding-bottom: 5px;
+    }
+    
+    #configurator ul li ul 
+    {
+        margin:0;
+        padding:0;
+    }
+    
+    #configurator ul li ul label 
+    {
+        padding-left: 20px;
+        box-sizing: border-box;
+    }
+</style>
+<script>
+var avaliablePrices = @Html.Raw(ViewData["AvaliablePrices"]);
+</script>
+<div class="control-group">
+    <label class="control-label" for="VersionKey">
+        Версия</label>
+    <div class="controls">
+        @Html.DropDownListFor(x => x.VersionKey, new SelectList(Model.GetAvaliableVersions(), "Key", "Value"), new { id = "version-dropdown" })
+    </div>
+</div>
+
+<div class="control-group">
+    @Html.LabelFor(x => x.TypeID, new { @class = "control-label"})
+    <div class="controls">
+        @Html.DropDownListFor(x => x.TypeID, new SelectList(Model.OrderTypes, "ID", "Name"), new { id = "order-type-dropdown" })
+    </div>
+</div>
+
+<div class="control-group">
+    @Html.LabelFor(x => x.StatusKey, new { @class = "control-label"})
+    <div class="controls">
+        @Html.DictionaryDropDown(x => x.StatusKey, DictionaryEntry.ORDER_STATUS_DICTIONARY)
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="VersionKey">
+        Конфигурация</label>
+    <div class="controls" id="configurator">
+        @Html.Action("Options", "Order", new { order = Model })
+    </div>
+</div>
+
+
+
+<div class="control-group">
+    <div class="controls">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+</div>
+
+<script>
+    $('#version-dropdown').on('change', function () {
+        var version = $(this).val();
+        $.get('@Url.Action("GetAvaliablePrices")', { version: version }, function (data) {
+            avaliablePrices = data;
+            calculatePrice();
+        });
+    });
+</script>
+

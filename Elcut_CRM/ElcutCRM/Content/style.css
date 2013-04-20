@@ -1,0 +1,11 @@
+﻿
+.field-validation-error 
+{
+    color:Red;
+    font-size: 70%;
+}
+
+#organizationTabContainer div.tab-pane 
+{
+    padding-bottom: 100px;
+}

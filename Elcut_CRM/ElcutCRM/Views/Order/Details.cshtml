@@ -1,0 +1,53 @@
+﻿@model ElcutCRM.Data.Models.Order
+@using ElcutCRM.Helpers;
+@{
+    Layout = "~/Views/Shared/_BootstrapIndex.cshtml";
+    ViewBag.Title = "Детали заказа №" + Model.ID;
+}
+<div class="row">
+    <div class="span6">
+        <h4>Детали заказа №@Model.ID</h4>
+        <table class="table table-striped">
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.VersionKey)
+                </td>
+                <td>@Model.VersionName
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.TypeID)
+                </td>
+                <td>@Model.OrderType.Name
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.StatusKey)
+                </td>
+                <td>@Model.Status.Name
+                </td>
+            </tr>
+            <tr>
+                <td>Конфигурация
+                </td>
+                <td>@Model.ConfigurationName
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(x => x.Price)
+                </td>
+                <td>@Model.Price
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.BootstrapActionButton("Изменить", "Edit", "Order", new { id = Model.ID })
+                    @Html.BootstrapActionButton("Назад", "Details", "Clients", new { id=Model.OrganizationID, tab = "ordersTab" })
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+@section Scripts {
+
+}

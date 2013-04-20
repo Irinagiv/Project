@@ -1,0 +1,81 @@
+﻿@model ElcutCRM.Data.Models.ContactName
+@using ElcutCRM.Helpers;
+@using ElcutCRM.Data.Models;
+
+
+@Html.HiddenFor(x => x.ID)
+@if (Model.ID == 0)
+{
+    @Html.HiddenFor(x => x.OrganizationID)
+}
+
+<div class="control-group">
+    @Html.LabelFor(x => x.Name, new { @class = "control-label"})
+    <div class="controls">
+        @Html.TextBoxFor(x=> x.Name)
+        @Html.ValidationMessageFor(x=>x.Name)
+    </div>
+</div>
+
+<div class="control-group">
+    @Html.LabelFor(x => x.LastName, new { @class = "control-label"})
+    <div class="controls">
+        @Html.TextBoxFor(x => x.LastName)
+        @Html.ValidationMessageFor(x => x.LastName)
+    </div>
+</div>
+
+<div class="control-group">
+    @Html.LabelFor(x => x.Surname, new { @class = "control-label"})
+    <div class="controls">
+        @Html.TextBoxFor(x => x.Surname)
+        @Html.ValidationMessageFor(x => x.Surname)
+    </div>
+</div>
+
+<div class="control-group">
+    @Html.LabelFor(x => x.Position, new { @class = "control-label"})
+    <div class="controls">
+        @Html.TextBoxFor(x => x.Position)
+        @Html.ValidationMessageFor(x => x.Position)
+    </div>
+</div>
+
+<div class="control-group">
+    @Html.LabelFor(x => x.Phone, new { @class = "control-label"})
+    <div class="controls">
+        @Html.TextBoxFor(x => x.Phone)
+        @Html.ValidationMessageFor(x => x.Phone)
+    </div>
+</div>
+
+<div class="control-group">
+    @Html.LabelFor(x => x.Email, new { @class = "control-label"})
+    <div class="controls">
+        @Html.TextBoxFor(x => x.Email)
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
+</div>
+
+<div class="control-group">
+    @Html.LabelFor(x => x.Fax, new { @class = "control-label"})
+    <div class="controls">
+        @Html.TextBoxFor(x => x.Fax)
+        @Html.ValidationMessageFor(x => x.Fax)
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="Index">
+        ВКонтакте ID</label>
+    <div class="controls">
+        @Html.TextBoxFor(x => x.VKID)
+    </div>
+</div>
+
+
+<div class="control-group">
+    <div class="controls">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+</div>

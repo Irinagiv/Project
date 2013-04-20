@@ -1,0 +1,18 @@
+﻿@model ElcutCRM.Data.Models.ContactName
+@using ElcutCRM.Helpers;
+@using ElcutCRM.Data.Models;
+@{
+    
+    Layout = "~/Views/Shared/_BootstrapIndex.cshtml";
+}
+
+@using (Html.BeginForm("EditContact", "Clients", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.EditorForModel()
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

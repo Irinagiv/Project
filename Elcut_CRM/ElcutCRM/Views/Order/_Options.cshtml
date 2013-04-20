@@ -1,0 +1,75 @@
+﻿@model ElcutCRM.Models.OrderOptionsViewModel
+<ul id="options-list">
+    @foreach (var option in Model.AvaliableOptions)
+    {
+        <li class="option">
+            <label>
+                @Html.CheckBox("Options[]", Model.SelectedOptions.Any(x=>x == option.ID), new { @value = option.ID, @class="parent" })
+                @option.Name
+            </label>
+            @if (option.Options.Count() > 0)
+            {
+                <ul class='child-options'>
+                    @foreach (var childOpt in option.Options)
+                    {
+                    <li>
+                        <label>
+                            @Html.CheckBox("Options[]", Model.SelectedOptions.Any(x => x == childOpt.ID), new { @value = childOpt.ID })
+                            @childOpt.Name
+                        </label>
+                    </li>
+                    }
+                </ul>
+            }
+        </li>
+    }
+</ul>
+
+<div class="alert alert-info">
+Стоимость: <span id="price"></span> рублей
+</div>
+
+<script>
+    $('#options-list ul.child-options input').on('change', function (e) {
+        //var selectedCount = $(this).siblings(':checked').length;
+
+        var parent = $(this).parents('li.option');
+
+        parent.find('input')[0].checked = parent.find('ul li input:checked').length > 0;
+    });
+
+    $('#options-list input.parent').on('change', function (e) {
+        var that = this;
+        if (this.checked) {
+            return;
+        }
+        $(this).parents('li').find('ul li input').each(function () {
+            this.checked = that.checked;
+        });
+    });
+    var calculatePrice = function () {
+        var typeId = $('#order-type-dropdown').val();
+        var totalPrice = 0;
+
+        $('#options-list input:checked').each(function () {
+            var optionId = this.value;
+
+            var priceInfo = $.grep(avaliablePrices, function (el) {
+                return el.OptionID == optionId && el.OrderTypeID == typeId;
+            });
+
+            if (priceInfo.length == 0) { return; }
+
+            priceInfo = priceInfo[0];
+
+            totalPrice += priceInfo.Price;
+        });
+
+        $('#price').html(totalPrice);
+    };
+
+    $('#options-list input').on('change', calculatePrice);
+
+    calculatePrice();
+    
+</script>
